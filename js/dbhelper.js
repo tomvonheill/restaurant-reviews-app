@@ -9,6 +9,7 @@ class DBHelper {
    */
   static get DATABASE_URL() {
     const port = 8000 // Change this to your server port
+    console.log(`http://localhost:${port}/data/restaurants.json`)
     return `http://localhost:${port}/data/restaurants.json`;
   }
 
@@ -17,13 +18,16 @@ class DBHelper {
    */
   static fetchRestaurants(callback) {
     let xhr = new XMLHttpRequest();
+    console
     xhr.open('GET', DBHelper.DATABASE_URL);
     xhr.onload = () => {
       if (xhr.status === 200) { // Got a success response from server!
         const json = JSON.parse(xhr.responseText);
         const restaurants = json.restaurants;
+        console.log(restaurants);
         callback(null, restaurants);
       } else { // Oops!. Got an error from server.
+        console.log('fail fail fail');
         const error = (`Request failed. Returned status of ${xhr.status}`);
         callback(error, null);
       }
